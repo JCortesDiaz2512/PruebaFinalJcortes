@@ -13,7 +13,53 @@
     </header>
 
     <main>
-        <p>Cargando Pagina...</p>
+        <div id="registro-container" class="form-container">
+            <h2>Registro de entrenador</h2>
+            <p class="subtitle">Completa tus datos</p>
+            
+            <form id="trainerForm">
+                <div class="input-group">
+                    <label for="nombre">Nombre de Entrenador:</label>
+                    <input type="text" id="nombre" placeholder="nombre123">
+                    <span id="errorNombre" class="error-msg"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="correo">Correo Electronico:</label>
+                    <input type="text" id="correo" placeholder="Tu@gmail.com">
+                    <span id="errorCorreo" class="error-msg"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="edad">Edad:</label>
+                    <input type="number" id="edad" placeholder="Minimo 10 años para ser entrenador">
+                    <span id="errorEdad" class="error-msg"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" placeholder="Mínimo 6 caracteres">
+                    <span id="errorPassword" class="error-msg"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="confirmPassword">Confirmar Contraseña:</label>
+                    <input type="password" id="confirmPassword" placeholder="Repite tu contraseña">
+                    <span id="errorConfirm" class="error-msg"></span>
+                </div>
+
+                <button type="submit" id="btnActivar" disabled>Activar Pokedex</button>
+            </form>
+
+            <div style="text-align: center; margin-top: 25px;">
+                <img src="https://canalpokemon.wordpress.com/wp-content/uploads/2008/12/oak.gif?w=283&h=315" alt="ProfesorOak" style="max-width: 100%; border-radius: 8px;">
+            </div>
+        </div>
+
+        <div id="pokedex-container" class="hidden">
+            <h2>Bienvenido</h2>
+            <div id="lista-pokemon" class="grid-pokemon"></div>
+        </div>
     </main>
 
     <script src="script.js"></script>
