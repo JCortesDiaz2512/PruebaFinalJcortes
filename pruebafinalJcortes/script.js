@@ -1,4 +1,3 @@
-
 const form = document.getElementById('trainerForm');
 const btnActivar = document.getElementById('btnActivar');
 
@@ -10,7 +9,6 @@ const fields = {
     confirmPassword: document.getElementById('confirmPassword')
 };
 
-
 const errors = {
     nombre: true,
     correo: true,
@@ -19,12 +17,10 @@ const errors = {
     confirmPassword: true
 };
 
-
 function checkFormValidity() {
     const hasErrors = Object.values(errors).some(error => error === true);
     btnActivar.disabled = hasErrors;
 }
-
 
 function setFieldStatus(field, errorSpan, isValid, errorMsg) {
     if (isValid) {
@@ -41,7 +37,6 @@ function setFieldStatus(field, errorSpan, isValid, errorMsg) {
     checkFormValidity();
 }
 
-
 fields.nombre.addEventListener('input', () => {
     const span = document.getElementById('errorNombre');
     const value = fields.nombre.value.trim();
@@ -53,7 +48,6 @@ fields.nombre.addEventListener('input', () => {
         setFieldStatus(fields.nombre, span, true);
     }
 });
-
 
 fields.correo.addEventListener('input', () => {
     const span = document.getElementById('errorCorreo');
@@ -68,7 +62,6 @@ fields.correo.addEventListener('input', () => {
     }
 });
 
-
 fields.edad.addEventListener('input', () => {
     const span = document.getElementById('errorEdad');
     const value = parseInt(fields.edad.value, 10);
@@ -81,7 +74,6 @@ fields.edad.addEventListener('input', () => {
     }
 });
 
-
 fields.password.addEventListener('input', () => {
     const span = document.getElementById('errorPassword');
     const value = fields.password.value;
@@ -92,10 +84,9 @@ fields.password.addEventListener('input', () => {
     } else {
         setFieldStatus(fields.password, span, true);
     }
-   
+    
     fields.confirmPassword.dispatchEvent(new Event('input'));
 });
-
 
 fields.confirmPassword.addEventListener('input', () => {
     const span = document.getElementById('errorConfirm');
@@ -108,13 +99,63 @@ fields.confirmPassword.addEventListener('input', () => {
     }
 });
 
-
 form.addEventListener('submit', (e) => {
     e.preventDefault(); 
     
-
     document.getElementById('registro-container').classList.add('hidden');
     document.getElementById('pokedex-container').classList.remove('hidden');
     
     console.log("Entrenador registrado");
+    
+    cargarPokemon();
 });
+
+
+async function cargarPokemon() {
+    const listaPokemon = document.getElementById('lista-pokemon');
+    listaPokemon.innerHTML = '<p style="text-align:center;">Cargando datos</p>';
+
+    try {
+        
+        const respuesta = await fetch('pokemon.json');
+        const datos = await respuesta.json();
+        
+        listaPokemon.innerHTML = ''; 
+
+        for (let pokemon of datos) {
+            crearTarjetaPokemon(pokemon);
+        }
+
+    } catch (error) {
+        console.error("Error al cargar los Pokemon:", error);
+        listaPokemon.innerHTML = '<p class="error-msg" style="text-align:center;">Error al cargar el archivo JSON local.</p>';
+    }
+}
+
+function crearTarjetaPokemon(pokemon) {
+    const listaPokemon = document.getElementById('lista-pokemon');
+
+    const tarjeta = document.createElement('div');
+    tarjeta.classList.add('pokemon-card');
+
+    const imagen = document.createElement('img');
+    imagen.src = pokemon.imagen; 
+    imagen.alt = pokemon.name;
+
+    const nombre = document.createElement('h3');
+    nombre.textContent = `${pokemon.id}. ${pokemon.name}`;
+
+    const botonCapturar = document.createElement('button');
+    botonCapturar.textContent = "Capturar";
+    botonCapturar.classList.add('btn-capturar');
+    
+    botonCapturar.addEventListener('click', () => {
+        alert(`Has atrapado a ${pokemon.name}`);
+    });
+
+    tarjeta.appendChild(imagen);
+    tarjeta.appendChild(nombre);
+    tarjeta.appendChild(botonCapturar);
+    
+    listaPokemon.appendChild(tarjeta);
+}
