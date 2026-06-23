@@ -116,8 +116,7 @@ async function cargarPokemon() {
     listaPokemon.innerHTML = '<p style="text-align:center;">Cargando datos</p>';
 
     try {
-        
-        const respuesta = await fetch('pokemon.json');
+        const respuesta = await fetch('data/pokemon.json');
         const datos = await respuesta.json();
         
         listaPokemon.innerHTML = ''; 
@@ -150,7 +149,7 @@ function crearTarjetaPokemon(pokemon) {
     botonCapturar.classList.add('btn-capturar');
     
     botonCapturar.addEventListener('click', () => {
-        alert(`Has atrapado a ${pokemon.name}`);
+        añadirAlEquipo(pokemon);
     });
 
     tarjeta.appendChild(imagen);
@@ -158,4 +157,33 @@ function crearTarjetaPokemon(pokemon) {
     tarjeta.appendChild(botonCapturar);
     
     listaPokemon.appendChild(tarjeta);
+}
+
+function añadirAlEquipo(pokemon) {
+    const equipoPokemon = document.getElementById('equipo-pokemon');
+    
+    const tarjetaEquipo = document.createElement('div');
+    tarjetaEquipo.classList.add('pokemon-card');
+    tarjetaEquipo.style.borderColor = '#4CAF50'; 
+
+    const imagen = document.createElement('img');
+    imagen.src = pokemon.imagen;
+    imagen.alt = pokemon.name;
+
+    const nombre = document.createElement('h3');
+    nombre.textContent = pokemon.name;
+
+    const botonLiberar = document.createElement('button');
+    botonLiberar.textContent = "Liberar";
+    botonLiberar.classList.add('btn-liberar');
+  
+    botonLiberar.addEventListener('click', () => {
+        tarjetaEquipo.remove();
+    });
+
+    tarjetaEquipo.appendChild(imagen);
+    tarjetaEquipo.appendChild(nombre);
+    tarjetaEquipo.appendChild(botonLiberar);
+
+    equipoPokemon.appendChild(tarjetaEquipo);
 }

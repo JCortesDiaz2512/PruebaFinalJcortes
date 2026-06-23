@@ -152,3 +152,12 @@ button:disabled {
 .btn-capturar:hover {
     background-color: #45a049;
 }
+
+.btn-liberar {
+    background-color: #ef5350;
+    margin-top: 10px;
+}
+
+.btn-liberar:hover {
+    background-color: #d32f2f;
+}
