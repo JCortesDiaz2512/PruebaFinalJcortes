@@ -116,7 +116,7 @@ async function cargarPokemon() {
     listaPokemon.innerHTML = '<p style="text-align:center;">Cargando datos</p>';
 
     try {
-        const respuesta = await fetch('data/pokemon.json');
+        const respuesta = await fetch('pokemon/pokemon.json');
         const datos = await respuesta.json();
         
         listaPokemon.innerHTML = ''; 
